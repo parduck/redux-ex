@@ -7,3 +7,4 @@ git push -u origin master
 git remote -v
 
 git reset --hard "버전"
+
