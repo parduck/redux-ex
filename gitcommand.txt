@@ -1,4 +1,4 @@
-git log --decorate --all --online --graph
+git log --decorate --all --oneline --graph
 git remote add origin https://github.com/parduck/redux-ex.git
 git push -u origin master
 >>git pull origin 브런치명 --allow-unrelated-histories
