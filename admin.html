@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    </head>
+    <body>
+        <div id="search"></div>
+        <div id="main"></div>
+        
+        
+        <script>
+        //action->dispatch(subscribe)->reducer->state<-getState()<->render<->UI
+
+        function search(){
+            document.querySelector('#search').innerHTML= `
+                <search>
+                    <form onsubmit="event.preventDefault(); var _id = this.id.value; 
+                        
+                        store.dispatch({
+                            type:'SEARCH',
+                            id:_id,
+                            model:'SM-F907N'
+
+                        });
+                    ">
+                        <p>
+                            <input type="text" name="id" placeholder="">
+                        
+                            <input type="submit" value="Search">
+                        </p>
+                    </form>
+                </search>
+                `
+        }
+        function main(){
+            var state = store.getState();
+                 
+            var aIMEI, aModel;
+            aIMEI = state.id;
+            aModel = state.model;        
+            document.querySelector('#main').innerHTML=`
+            <content>
+                <h2>${aIMEI}</h2>
+                ${aModel}
+            </content>
+            `
+                
+        }
+
+        function reducer(state,action){
+            console.log(state,action);
+            if(state===undefined){
+                return{
+                    id:'',
+                    model:''
+                }
+            }
+            var newState;
+            if(action.type ==='SEARCH'){
+                newState = Object.assign({},state,{id:action.id,model:action.model});
+            }
+
+            console.log(action,state,newState);
+            return newState;
+        }
+
+            var store = Redux.createStore(reducer);
+            search();
+            
+            store.subscribe(main);
+        </script>
+    </body>
+
+</html>
